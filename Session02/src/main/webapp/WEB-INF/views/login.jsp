@@ -6,38 +6,20 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
-<head><title>Danh sách đơn hàng</title></head>
+<head><title>Đăng nhập hệ thống</title></head>
 <body>
-<h2>Xin chào, ${sessionScope.loggedUser}! Vai trò: ${sessionScope.role}</h2>
+<h2>Đăng nhập</h2>
 
-<table border="1">
-    <tr>
-        <th>Mã đơn</th>
-        <th>Sản phẩm</th>
-        <th>Tổng tiền</th>
-        <th>Ngày đặt</th>
-    </tr>
-    <c:forEach items="${orderList}" var="o">
-        <tr>
-            <td>${o.id}</td>
-            <td><c:out value="${o.productName}" /></td>
-            <td>
-                <fmt:formatNumber value="${o.amount}" type="currency" currencySymbol="VNĐ" />
-            </td>
-            <td>
-                <fmt:formatDate value="${o.orderDate}" pattern="dd/MM/yyyy" />
-            </td>
-        </tr>
-    </c:forEach>
-</table>
+<c:if test="${not empty error}">
+    <p style="color: red;">${error}</p>
+</c:if>
 
-<hr>
-<p>Tổng lượt xem đơn hàng: <strong>${applicationScope.totalViewCount}</strong></p>
-
-<a href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
+<form action="${pageContext.request.contextPath}/login" method="post">
+    Tài khoản: <input type="text" name="username" required><br><br>
+    Mật khẩu: <input type="password" name="password" required><br><br>
+    <button type="submit">Vào hệ thống</button>
+</form>
 </body>
 </html>

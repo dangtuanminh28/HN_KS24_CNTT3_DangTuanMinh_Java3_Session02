@@ -11,26 +11,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AuthController {
 
     @GetMapping("/login")
-    public String showLogin() {
+    public String loginPage() {
         return "login";
     }
 
     @PostMapping("/login")
-    public String handleLogin(
-            @RequestParam("username") String user,
-            @RequestParam("password") String pass,
-            HttpSession session,
-            Model model) {
+    public String login(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+                        HttpSession session,
+                        Model model) {
+        System.out.println("Login attempt with: " + username);
+        boolean isAdmin = "admin".equals(username) && "admin123".equals(password);
+        boolean isStaff = "staff".equals(username) && "staff123".equals(password);
 
-        if (("admin".equals(user) && "admin123".equals(pass)) ||
-                ("staff".equals(user) && "staff123".equals(pass))) {
-
-            session.setAttribute("loggedUser", user);
-            session.setAttribute("role", user.equals("admin") ? "Quản trị viên" : "Nhân viên");
+        if (isAdmin || isStaff) {
+            session.setAttribute("loggedUser", username);
+            session.setAttribute("role", isAdmin ? "Quản trị viên" : "Nhân viên");
 
             return "redirect:/orders";
         } else {
-            model.addAttribute("error", "Sai tên đăng nhập hoặc mật khẩu!");
+            model.addAttribute("error", "Sai tài khoản hoặc mật khẩu! Vui lòng thử lại.");
             return "login";
         }
     }

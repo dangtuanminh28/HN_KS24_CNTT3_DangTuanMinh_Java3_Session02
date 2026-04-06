@@ -10,7 +10,7 @@
     <li><a href="${pageContext.request.contextPath}/welcome">Bài 1</a></li>
     <li><a href="${pageContext.request.contextPath}/student-list">Bài 2</a></li>
     <li><a href="${pageContext.request.contextPath}/orders">Bài 3</a></li>
-    <li><a href="${pageContext.request.contextPath}/products">Bài 4</a></li>
+    <li><a href="${pageContext.request.contextPath}/search">Bài 4</a></li>
 </ul>
 
 </body>
